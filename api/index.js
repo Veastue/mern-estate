@@ -3,6 +3,7 @@ dotenv.config();
 import express from 'express';
 import mongoose from 'mongoose';
 import userRouter from './routes/user.route.js'
+import authRouter from './routes/auth.route.js'
 
 
 const uri = process.env.MONGO_URI
@@ -23,5 +24,10 @@ app.get('/', (req, res) => {
    res.send({message: 'hello world'})
 })
 
+//allow app to use json file
+
+app.use(express.json());
+
 //PATH use
-app.use('/api/user', userRouter)
+app.use('/api/user', userRouter);
+app.use('/api/auth', authRouter);
