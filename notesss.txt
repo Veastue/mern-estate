@@ -1,0 +1,1 @@
+delete nodemon when deploying to production!
