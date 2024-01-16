@@ -1,7 +1,9 @@
 import React from 'react'
 import {BrowserRouter, Routes, Route } from'react-router-dom'
 import Headers from './components/Headers'
-import { Signin, SignUp, About, Profile, Home } from './pages'
+import { Signin, SignUp, About, Profile, Home,} from './pages'
+
+import PrivateRouteU from './components/PrivateRouteU'
 
 const App = () => {
   return (
@@ -12,7 +14,9 @@ const App = () => {
         <Route path='/sign-in' element={<Signin />} />
         <Route path='/sign-up' element={<SignUp/>} />
         <Route path='/about' element={<About />} />
-        <Route path='/profile' element={<Profile />} />
+        <Route element={<PrivateRouteU />} >
+          <Route path='/profile' element={<Profile />} />
+        </Route>
       </Routes>
     </BrowserRouter>
   )

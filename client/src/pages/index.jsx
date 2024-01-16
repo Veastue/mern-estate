@@ -9,5 +9,5 @@ export {
     Home,
     Profile,
     SignUp,
-    Signin
+    Signin,
 }

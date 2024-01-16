@@ -28,7 +28,6 @@ const SignUp = () => {
       });
       const data = await res.json();
       if(data.success === false){
-        console.log(data)
         setError(data.message);
         setLoading(false);
         return;
@@ -36,7 +35,6 @@ const SignUp = () => {
       setLoading(false);
       setError(null)
       navigate('/sign-in');
-      console.log(data)
     } catch(etry){
       setLoading(false);
       setError(etry.message)
