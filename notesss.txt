@@ -1,1 +1,3 @@
 delete nodemon when deploying to production!
+
+vite config to replace 5173 to 3000
