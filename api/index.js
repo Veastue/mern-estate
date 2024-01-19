@@ -1,10 +1,10 @@
 import dotenv from 'dotenv';
-dotenv.config();
+import cookieParser from 'cookie-parser';
 import express from 'express';
 import mongoose from 'mongoose';
 import userRouter from './routes/user.route.js'
 import authRouter from './routes/auth.route.js'
-
+dotenv.config();
 
 const uri = process.env.MONGO_URI
 mongoose
@@ -27,6 +27,10 @@ app.get('/', (req, res) => {
 //allow app to use json file
 
 app.use(express.json());
+
+// use cookie parser
+
+app.use(cookieParser());
 
 //PATH use
 app.use('/api/user', userRouter);
