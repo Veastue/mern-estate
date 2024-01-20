@@ -1,12 +1,14 @@
 import React, {useEffect, useRef, useState} from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 import {getStorage, uploadBytesResumable, ref, getDownloadURL} from 'firebase/storage'
 import {app} from '../firebase'
-import {updateUserFailure, updateUserStart, updateUserSucess} from '../redux/user/userSlice'
+import {deleteUserFailure, deleteUserStart, deleteUserSucess, updateUserFailure, updateUserStart, updateUserSucess} from '../redux/user/userSlice'
 
 const Profile = () => {
   const {currentUser, loading, error} = useSelector((state) => state.user.user);
-
+  const navigate = useNavigate();
+  console.log(currentUser)
   const fileRef = useRef(null);
   const [file, setFile] = useState(undefined)
   const [filePerc, setFilePerc] = useState(undefined)
@@ -14,8 +16,8 @@ const Profile = () => {
   const [formData, setFormData] = useState({})
   const [successUpdate, setSuccessUpdate] = useState(false)
   const dispatch = useDispatch();
-  console.log(successUpdate)
-  console.log(error)
+  /* console.log(successUpdate)
+  console.log(error) */
 
 
   useEffect(()=>{
@@ -64,17 +66,34 @@ const Profile = () => {
         body: JSON.stringify(formData)
       });
       const data = await res.json();
+      console.log(data)
       if (data.statusCode !== 200){
         dispatch(updateUserFailure(data.message));
-        return;
       };
       dispatch(updateUserSucess(data));
+      return data;
     } catch (error) {
       dispatch(updateUserFailure(error.message));
       console.log(error)
     } finally {
       if(error === null || undefined) {setSuccessUpdate(true)}
       setSuccessUpdate(false)
+    }
+  }
+
+  const handleDeleteUser = async() => {
+    try {
+      dispatch(deleteUserStart());
+      const res = await fetch (`/api/user/delete/${currentUser._id}`, {
+        method: 'DELETE'
+      });
+      const data = await res.json();
+      if (data.statusCode !== 200){
+        dispatch(deleteUserFailure(data.message));
+      }
+      dispatch(deleteUserSucess(data))
+    } catch (error){
+      dispatch(deleteUserFailure(error.message))
     }
   }
 
@@ -102,7 +121,7 @@ const Profile = () => {
         <button disabled={loading} type='submit' className='bg-slate-700 text-white rounded-lg p-3 uppercase hover:opacity-95 disabled:opacity-80'>{loading ? 'Loading...': 'Update'}</button>
       </form>
       <div className="flex justify-between mt-5">
-        <span className="text-red-700 cursor-pointer">Delete Account</span>
+        <span onClick={handleDeleteUser} className="text-red-700 cursor-pointer">Delete Account</span>
         <span className="text-red-700 cursor-pointer">Sign out</span>
       </div>
       <p className="text-red-500 mt-10">{error !== null  ? error : ''}</p>
