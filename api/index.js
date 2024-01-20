@@ -4,6 +4,7 @@ import express from 'express';
 import mongoose from 'mongoose';
 import userRouter from './routes/user.route.js'
 import authRouter from './routes/auth.route.js'
+import listingRouter from './routes/listing.route.js'
 dotenv.config();
 
 const uri = process.env.MONGO_URI
@@ -35,6 +36,7 @@ app.use(cookieParser());
 //PATH use
 app.use('/api/user', userRouter);
 app.use('/api/auth', authRouter);
+app.use('/api/listing', listingRouter);
 
 //middle ware
 
