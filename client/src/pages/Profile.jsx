@@ -190,7 +190,9 @@ const Profile = () => {
               </Link>
               <div className='flex flex-col gap-1 w-20'>
                 <button  onClick={()=>handleListingDelete(listings._id)} className='text-white uppercase w-full bg-red-700 rounded-lg'>Delete</button>
-                <button className='text-white uppercase w-full bg-green-700 rounded-lg'>Edit</button>
+                <Link to={`/update-listing/${listings._id}`}>
+                  <button className='text-white uppercase w-full bg-green-700 rounded-lg'>Edit</button>
+                </Link>
               </div>
             </div>
           )
