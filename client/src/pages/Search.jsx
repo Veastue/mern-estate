@@ -15,9 +15,7 @@ const Search = () => {
     });
     const [loading, setLoading] = useState(false);
     const [listings, setListings] = useState([]);
-    console.log(listings)
-
-    console.log(sidebardata)
+    const [showMore, setShowMore] = useState(false)
 
     useEffect(()=>{
         const urlParams = new URLSearchParams(window.location.search);
@@ -50,10 +48,14 @@ const Search = () => {
         }
 
         const fetchListing = async() => {
+            setShowMore(false)
             setLoading(true)
             const searchQuery = urlParams.toString();
             const res = await fetch(`/api/listing/get?${searchQuery}`);
             const data = await res.json();
+            if(data.length>8){
+                setShowMore(true)
+            }
             setListings(data);
             setLoading(false)
         }
@@ -77,9 +79,11 @@ const Search = () => {
         }
     
         if (e.target.id === 'sort_order') {
-            const sort = e.target.value.split('_')[0] || 'created_at';
-            const order = e.target.value.split('_')[1] || 'desc';
-    
+            const sort = e.target.value.split('_')[0]
+            /* const order = e.target.value.slice(-3) === 'esc' ? 'desc': e.target.value.slice(-3); */
+            const order = e.target.value.split('_')[2] || e.target.value.split('_')[1]
+            
+                
             setSidebardata({
                 ...sidebardata,
                 sort,
@@ -100,6 +104,21 @@ const Search = () => {
         urlParams.set('order', sidebardata.order)
         const searchQuery = urlParams.toString()
         navigate(`/search?${searchQuery}`)
+    }
+
+    const onShowMoreClick = async() => {
+        const numberOflistings = listings.length;
+        const startIndex = numberOflistings;
+        console.log(startIndex)
+        const urlParams = new URLSearchParams(window.location.search)
+        urlParams.set('startIndex', startIndex);
+        const searchQuery = urlParams.toString();
+        const res = await fetch(`/api/listing/get?${searchQuery}`)
+        const data = await res.json();
+        if (data.length< 9){
+            setShowMore(false);
+        }
+        setListings([...listings,...data]);
     }
   return (
     <div className='flex flex-col md:flex-row'>
@@ -164,12 +183,12 @@ const Search = () => {
                     <label className='font-semibold'>Sort:</label>
                     <select id="sort_order" className='border rounded-lg p-3'
                     onChange={handleChange}
-                    defaultValue={'created_at_desc'}
+                    defaultValue={'createdAt_desc'}
                     >
                         <option value='regularPrice_desc'>Price high to low</option>
                         <option value='regularPrice_asc'>Price low to high</option>
-                        <option value='created_at_desc'>Latest</option>
-                        <option value='created_at_asc'>Oldest</option>
+                        <option value='createdAt_desc'>Latest</option>
+                        <option value='createdAt_asc'>Oldest</option>
                     </select>
                 </div>
                 <button className='bg-slate-700 text-white p-3 rounded-lg uppercase hover:opacity-95'>Search</button>
@@ -187,6 +206,12 @@ const Search = () => {
                 {!loading && listings && listings.map((listing) => 
                     <ListingItems key={listing._id} listing={listing}/>
                 )}
+                
+            </div>
+            <div className='flex items-center justify-center'>
+                {showMore && (
+                        <button onClick={()=>onShowMoreClick()} className='text-green-700 hover:underline p-7 text-center'>Show more</button>
+                    )}
             </div>
         </div>
     </div>
