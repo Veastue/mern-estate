@@ -150,7 +150,7 @@ const Profile = () => {
       <h1 className='text-3xl font-semibold text-center my-7'>Profile</h1>
       <form onSubmit={handleSubmit} className='flex flex-col gap-4'>
         <input onChange={(e)=>setFile(e.target.files[0])} type="file" ref={fileRef} hidden accept='image/.*'/>
-        <img onClick={()=>fileRef.current.click()} src={formData.avatar ||currentUser.avatar} alt="profile" className='rounded-full h-24 w-24 object-cover cursor-pointer self-center mt-2'/>
+        <img onClick={()=>fileRef.current.click()} src={formData.avatar ||currentUser.avatar} alt="profile" className='rounded-full h-24 w-24 object-cover cursor-pointer self-center mt-2 border-2'/>
         <p className='text-sm self-center'>
           {fileUploadError ? 
             <span className='text-red-500'> Image upload error(must be 2mb or image file)</span> 
@@ -185,7 +185,7 @@ const Profile = () => {
               <Link to={`/listing/${listings._id}`}>
                 <img src={listings.imageUrls[0]} alt="listing cover" className='w-16 h-16 object-contain rounded-lg'/>
               </Link>
-              <Link to={`/listing/${listings._id}`} className='flex-1'>
+              <Link to={`/listing/${listings._id}`} className='flex-1 truncate'>
                 <p className="text-slate-700 font-semibold flex-1 hover:underline truncate">{listings.name}</p>
               </Link>
               <div className='flex flex-col gap-1 w-20'>
