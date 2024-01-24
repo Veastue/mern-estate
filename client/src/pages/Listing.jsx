@@ -6,6 +6,7 @@ import {Navigation} from 'swiper/modules';
 import 'swiper/css/bundle';
 import { FaShare, FaMapMarkerAlt, FaBed, FaBath, FaParking, FaChair} from 'react-icons/fa';
 import { useSelector } from 'react-redux';
+import Contact from '../components/Contact';
 
 
 const Listing = () => {
@@ -14,7 +15,7 @@ const Listing = () => {
   const [listing, setListing] = useState(null);
   const [loading, setLoading] = useState(true);
   const {currentUser} = useSelector(state => state.user.user)
-  console.log(currentUser)
+  console.log(listing)
   const [copied, setCopied] = useState(false);
   const [contact, setContact] = useState(false);
   const [error, setError] = useState(false);
@@ -109,28 +110,28 @@ const Listing = () => {
                 {listing.description}
             </p>
             <ul className='text-green-900 font-semibold text-sm flex flex-wrap items-center gap-4 sm:gap-6'>
-                <li className='flex items-center gap-1 whitespace-nowrap  hover:text-white rounded-3xl hover:bg-green-900 px-2 py-1'>
+                <li className='flex items-center gap-1 whitespace-nowrap  hover:text-white rounded-lg hover:bg-green-900 px-2 py-1'>
                 <FaBed className='text-lg' />
                 {listing.bedrooms > 1
                     ? `${listing.bedrooms} beds `
                     : `${listing.bedrooms} bed `}
                 </li>
-                <li className='flex items-center gap-1 whitespace-nowrap  hover:text-white rounded-3xl hover:bg-green-900 px-2 py-1'>
+                <li className='flex items-center gap-1 whitespace-nowrap  hover:text-white rounded-lg hover:bg-green-900 px-2 py-1'>
                 <FaBath className='text-lg' />
                 {listing.bathrooms > 1
                     ? `${listing.bathrooms} baths `
                     : `${listing.bathrooms} bath `}
                 </li>
-                <li className='flex items-center gap-1 whitespace-nowrap  hover:text-white rounded-3xl hover:bg-green-900 px-2 py-1'>
+                <li className='flex items-center gap-1 whitespace-nowrap  hover:text-white rounded-lg hover:bg-green-900 px-2 py-1'>
                 <FaParking className='text-lg' />
                 {listing.parking ? 'Parking spot' : 'No Parking'}
                 </li>
-                <li className='flex items-center gap-1 whitespace-nowrap  hover:text-white rounded-3xl hover:bg-green-900 px-2 py-1'>
+                <li className='flex items-center gap-1 whitespace-nowrap  hover:text-white rounded-lg hover:bg-green-900 px-2 py-1'>
                 <FaChair className='text-lg' />
                 {listing.furnished ? 'Furnished' : 'Unfurnished'}
                 </li>
             </ul>
-            {currentUser && listing.userRef === currentUser._id && !contact && (
+            {currentUser && !contact && (
                 <button
                 onClick={() => setContact(true)}
                 className='bg-slate-700 text-white rounded-lg uppercase hover:opacity-95 p-3'
