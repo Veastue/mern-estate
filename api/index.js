@@ -21,11 +21,6 @@ app.listen(3000, ()=>{
 });
 
 
-//PATH
-
-app.get('/', (req, res) => {
-   res.send({message: 'hello world'})
-})
 
 //allow app to use json file
 
