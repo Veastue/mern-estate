@@ -5,6 +5,7 @@ import { useSelector } from 'react-redux'
 
 const Headers = () => {
   const {currentUser} = useSelector(state => state.user.user)
+  console.log(currentUser.avatar)
   const [searchTerm, setSearchTerm] = useState('')
   const navigate = useNavigate();
 
@@ -45,7 +46,7 @@ const Headers = () => {
             <ul className='flex gap-4 '>
                 <Link to='/'><li className='hidden sm:inline text-slate-700 hover:underline'>Home</li></Link>
                 <Link to='/about'><li className='hidden sm:inline text-slate-700 hover:underline'>About</li></Link>
-                {currentUser !== 'User has been deleted' && currentUser !== 'User has been logged out!'? <Link to='/profile'><img src={currentUser.avatar=== null ? '' : currentUser.avatar} alt='profile' className='rounded-full w-7 h-7 object-cover'></img></Link> : <Link to='/sign-in'><li className='text-slate-700 hover:underline'>Sign in</li></Link>}
+                {currentUser !== 'User has been deleted' && currentUser !== 'User has been logged out!'? <Link to='/profile'><img src={currentUser.avatar === null || undefined ? '' : currentUser.avatar} alt='profile' className='rounded-full w-7 h-7 object-cover'></img></Link> : <Link to='/sign-in'><li className='text-slate-700 hover:underline'>Sign in</li></Link>}
                 
             </ul>
         </div>
