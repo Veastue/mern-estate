@@ -15,7 +15,6 @@ const Listing = () => {
   const [listing, setListing] = useState(null);
   const [loading, setLoading] = useState(true);
   const {currentUser} = useSelector(state => state.user.user)
-  console.log(listing)
   const [copied, setCopied] = useState(false);
   const [contact, setContact] = useState(false);
   const [error, setError] = useState(false);
@@ -26,7 +25,6 @@ const Listing = () => {
         const listingId = params.listingId
         const res = await fetch(`/api/listing/get/${listingId}`);
         const data = await res.json();
-        console.log(data)
         if (data.sucess === false) {
           setError(true);
           setLoading(false);

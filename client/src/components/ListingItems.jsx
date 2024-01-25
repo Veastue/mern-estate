@@ -6,7 +6,7 @@ const ListingItems = ({listing}) => {
   return (
     <div className=" bg-white shadow-md hover:shadow-lg transition-shadow overflow-hidden rounded-lg w-full sm:w-[320px]">
         <Link to={`/listing/${listing._id}`}>
-            <img src={listing.imageUrls[0] === 'https://example.com/images/kekeke'? 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQk9k7e5_vnxzRMCPSXXDIOKZoz-F1HTHx47g&usqp=CAU' : listing.imageUrls[0] }/>
+            <img src={listing.imageUrls[0] === 'https://example.com/images/kekeke'? 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQk9k7e5_vnxzRMCPSXXDIOKZoz-F1HTHx47g&usqp=CAU' : listing.imageUrls[0] }className='w-full hover:scale-95 duration-150'/>
             <div className="p-3 flex flex-col gap-2">
                 <p className='text-lg font-semibold text-slate-700 truncate'>{listing.name}</p>
                 <div className="flex items-center gap-1">
