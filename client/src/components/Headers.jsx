@@ -5,7 +5,6 @@ import { useSelector } from 'react-redux'
 
 const Headers = () => {
   const {currentUser} = useSelector(state => state.user.user)
-  console.log(currentUser.avatar)
   const [searchTerm, setSearchTerm] = useState('')
   const navigate = useNavigate();
 
