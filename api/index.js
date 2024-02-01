@@ -7,6 +7,7 @@ import authRouter from './routes/auth.route.js'
 import listingRouter from './routes/listing.route.js'
 import path from 'path';
 dotenv.config();
+import cors from 'cors'
 
 const uri = process.env.MONGO_URI
 mongoose
@@ -15,6 +16,8 @@ mongoose
    const __dirname = path.resolve();
 
 const app = express()
+
+app.use(cors());
 
 app.listen(3000, ()=>{
    console.log('Server is running on PORT 3000!!!')
