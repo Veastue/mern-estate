@@ -46,6 +46,9 @@ const Home = () => {
     }
     fetchOfferListings();
   },[])
+  
+  console.log(offerListings)
+  console.log(saleListings)
 
   return (
     <div>
